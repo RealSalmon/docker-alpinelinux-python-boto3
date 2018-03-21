@@ -16,11 +16,13 @@ RUN addgroup ${APPUSER} && adduser -S app -G app && \
     pip install --no-cache-dir botocore==${BOTOCORE_VERSION} \
                                boto3==${BOTO3_VERSION} && \
     mkdir /python-testing && \
-    pip install --no-cache-dir -t /python-testing botocore==${BOTOCORE_VERSION} \
-                                                  boto3==${BOTO3_VERSION} \
-                                                  pytest \
-                                                  pytest-cov \
-                                                  moto && \
+    pip install --no-cache-dir \
+                --prefix /python-testing \
+                botocore==${BOTOCORE_VERSION} \
+                boto3==${BOTO3_VERSION} \
+                pytest \
+                pytest-cov \
+                moto && \
     apk del .build-deps && rm -rf /var/cache/apk/* && \
     mkdir -p ${PROJECTDIR} && chown ${APPUSER}:${APPUSER} ${PROJECTDIR}
 
