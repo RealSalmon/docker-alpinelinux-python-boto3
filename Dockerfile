@@ -7,11 +7,12 @@ ARG APPUSER=app
 ARG PROJECTDIR=/home/${APPUSER}/project
 
 RUN addgroup ${APPUSER} && adduser -S app -G app && \
-    apk add --update-cache --virtual .build-deps gcc \
-                                                 musl-dev \
-                                                 linux-headers \
-                                                 libffi-dev \
-                                                 openssl-dev && \
+    apk add --update-cache make && \
+    apk add --virtual .build-deps gcc \
+                                  musl-dev \
+                                  linux-headers \
+                                  libffi-dev \
+                                  openssl-dev && \
     pip install --upgrade pip && \
     pip install --no-cache-dir botocore==${BOTOCORE_VERSION} \
                                boto3==${BOTO3_VERSION} && \
